@@ -32,11 +32,11 @@ $(function() {
          * and that the URL is not empty.
          */
 
-        it('URL not empty', function() {
-            for (i in allFeeds) {
-                expect(allFeeds[i].url).toBeDefined();
-                expect(allFeeds[i].url).not.toBe('');
-            }
+        it('URL is defined and not empty', function() {
+            allFeeds.forEach(function(feed) {
+                expect(feed.url).toBeDefined();
+                expect(feed.url.length).not.toBe(0);
+            });
         });
 
 
@@ -45,11 +45,11 @@ $(function() {
          * and that the name is not empty.
          */
 
-        it('Names not empty', function() {
-            for (i in allFeeds) {
-                expect(allFeeds[i].name).toBeDefined();
-                expect(allFeeds[i].name).not.toBe('');
-            }
+        it('Name is defined and not empty', function() {
+            allFeeds.forEach(function(feed) {
+                expect(feed.name).toBeDefined();
+                expect(feed.name.length).toBeGreaterThan(0);
+            });
         });
     });
 
@@ -76,9 +76,9 @@ $(function() {
 
         it('menu changes visibility', function() {
             $('.menu-icon-link').click();
-            expect($('body').hasClass('menu-hidden')).toEqual(false);
+            expect($('body').hasClass('menu-hidden')).toBe(false);
             $('.menu-icon-link').click();
-            expect($('body').hasClass('menu-hidden')).toEqual(true);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
     });
 
@@ -100,8 +100,7 @@ $(function() {
         });
 
         it('feed container has atleast 1 entry', function() {
-            var entryNumber = $('.entry').length;
-            expect(entryNumber).toBeGreaterThan(0);
+            expect($('.entry').length).toBeGreaterThan(0);
          });
     });
 
@@ -118,23 +117,18 @@ $(function() {
         var secondFeedList;
         
         beforeEach(function(done) {
-            loadFeed(1, function() {
+            loadFeed(0, function() {
                 firstFeedList = $('.feed').html();
-                loadFeed(2, function() {
-                    done();
-                });
+                done();
             });        
         });
         
-        afterEach(function() {
-            loadFeed(0);
-        });
-
-          it('feed content changes', function() {
-            expect(firstFeedList).toBeDefined();
-            secondFeedList = $('.feed').html();
-            expect(secondFeedList).toBeDefined();
-            expect(firstFeedList).not.toEqual(secondFeedList);
+        it('feed content changes', function(done) {
+            loadFeed(1, function() {
+                secondFeedList = $('.feed').html();
+                expect(secondFeedList).not.toEqual(firstFeedList);
+                done();
+            });
          });  
     });
 }());
