@@ -134,7 +134,7 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
          */
 
-        var initialContent
+        var initialContent;
 
         // Async request
         beforeEach(function(done) {
