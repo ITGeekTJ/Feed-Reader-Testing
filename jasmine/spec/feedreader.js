@@ -75,7 +75,7 @@ $(function() {
         // Checks to see if the menu is hidden by default. 
         it('is the menu hidden by default', function() {
             // Uses class name from the body of the html and css to check that 'menu-hidden' is equal to true.
-            expect($body.hasClass('menu-hidden')).toEqual(true);
+            expect($('body').hasClass('menu-hidden')).toEqual(true);
         });
 
          /* TODO: Write a test that ensures the menu changes
@@ -89,11 +89,11 @@ $(function() {
             // Uses class for menu icon from html to check for click.
             $('.menu-icon-link').trigger('click');
             // Verifies that menu is no longer hidden.
-            expect($body.hasClass('menu-hidden')).toBe(false);
+            expect($('body').hasClass('menu-hidden')).toBe(false);
             // Uses class for menu icon from html to check for click.
             $('.menu-icon-link').trigger('click');
             // Verifies that menu is hidden again.
-            expect($body.hasClass('menu-hidden')).toBe(true);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
     });
 
@@ -118,9 +118,8 @@ $(function() {
 
         // Checks to see that the loadFeed function has at least one .entry element within .feed container.
         it('feed container has at least one .entry', function() {
-            var entry = $('.feed .entry')[0];
+            var entry = $('.feed .entry').length;
             expect(entry).not.toBe(0);
-            done();
         });
     });
 
